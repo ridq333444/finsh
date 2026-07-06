@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر نبوتة | لعالم نباتات أكثر حيوية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="splash-screen">
+        <div class="splash-content">
+            <i class="fas fa-seedling splash-icon"></i>
+            <h1 class="splash-title">نبوتة</h1>
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo" id="secret-logo-trigger" style="cursor: pointer; user-select: none;">
+                <i class="fas fa-seedling"></i>
+                <span>نبوتة</span>
+            </div>
+            
+            <div class="nav-actions">
+                <button id="theme-toggle" title="تغيير الوضع">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="cart-icon-wrapper" onclick="toggleCart()">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span id="cart-count">0</span>
+                </div>
+                <button id="menu-toggle" onclick="toggleSidebar()" title="القائمة">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
+        <div class="sidebar-content">
+            <div class="sidebar-logo">
+                <i class="fas fa-seedling"></i>
+                <h3>متجر نبوتة</h3>
+            </div>
+            <hr>
+            <h4>نبذة عن نبوتة</h4>
+            <p>مرحباً بك في متجر "نبوتة"، وجهتك الأولى والذكية لكل ما يخص تطوير العناية بالنباتات وتغذيتها. نحن متخصصون في توفير أجود أنواع الأسمدة السائلة والمغذيات العضوية والحلول الزراعية المبتكرة التي تضمن نمواً سريعاً وصحياً لنباتاتك المنزلية والخارجية. هدفنا جعل الطبيعة تنبض بالحياة في كل زاوية من منزلك بأسهل الطرق وأكثرها احترافية.</p>
+        </div>
+    </div>
+    <div class="overlay" id="overlay" onclick="closeAllPanels()"></div>
+
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2>طوّر نباتاتك بلمسة ذكية</h2>
+            <p>اكتشف تشكيلتنا الحصرية من الأسمدة السائلة والمغذيات الفائقة المصممة خصيصاً لإحياء نباتاتك وإبراز جمالها الأخضر.</p>
+            <a href="#products-section" class="btn-primary">تسوق الآن <i class="fas fa-arrow-down"></i></a>
+        </div>
+    </section>
+
+    <section class="products-container" id="products-section">
+        <div class="section-title">
+            <h3>مجموعتنا الحصرية</h3>
+            <p>أفضل المنتجات لنمو مثالي واحترافي</p>
+        </div>
+        <div class="products-grid" id="products-grid">
+            </div>
+    </section>
+
+    <div class="cart-panel" id="cart-panel">
+        <div class="cart-header">
+            <h3>سلة المشتريات</h3>
+            <button onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            </div>
+        <div class="cart-footer">
+            <div class="total-price-box">
+                <span>الإجمالي:</span>
+                <span id="cart-total-price">0</span> د.ع
+            </div>
+            <button class="btn-checkout" onclick="openCheckoutModal()">المتابعة لإتمام الطلب <i class="fas fa-credit-card"></i></button>
+        </div>
+    </div>
+
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>إتمام الطلب وتحديد التوصيل</h3>
+                <button onclick="closeCheckoutModal()">&times;</button>
+            </div>
+            <form id="checkout-form" onsubmit="handleCheckout(event)">
+                <div class="form-group">
+                    <label for="cust-name">الاسم الكامل:</label>
+                    <input type="text" id="cust-name" required placeholder="اكتب اسمك الثلاثي">
+                </div>
+                <div class="form-group">
+                    <label for="cust-phone">رقم الهاتف:</label>
+                    <input type="tel" id="cust-phone" required placeholder="07xxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label for="cust-city">المحافظة:</label>
+                    <select id="cust-city" required>
+                        <option value="" disabled selected>اختر محافظتك</option>
+                        <option value="بغداد">بغداد</option>
+                        <option value="البصرة">البصرة</option>
+                        <option value="نينوى">نينوى</option>
+                        <option value="أربيل">أربيل</option>
+                        <option value="النجف">النجف</option>
+                        <option value="كربلاء">كربلاء</option>
+                        <option value="ذي قار">ذي قار</option>
+                        <option value="بابل">بابل</option>
+                        <option value="السليمانية">السليمانية</option>
+                        <option value="الانبار">الانبار</option>
+                        <option value="ديالى">ديالى</option>
+                        <option value="كركوك">كركوك</option>
+                        <option value="ميسان">ميسان</option>
+                        <option value="المثنى">المثنى</option>
+                        <option value="القادسية">القادسية</option>
+                        <option value="واسط">واسط</option>
+                        <option value="صلاح الدين">صلاح الدين</option>
+                        <option value="دهوك">دهوك</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cust-address">العنوان بالتفصيل (المنطقة/الحي/أقرب نقطة دالة):</label>
+                    <textarea id="cust-address" required placeholder="مثال: المنصور، شارع الرواد، قرب مطعم..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit-order">إتمام الطلب عبر الواتساب <i class="fab fa-whatsapp"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="admin-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>لوحة التحكم الإدارية | إضافة منتج</h3>
+                <button onclick="closeAdminModal()">&times;</button>
+            </div>
+            <form id="admin-form" onsubmit="addNewProduct(event)">
+                <div class="form-group">
+                    <label for="prod-title">اسم المنتج:</label>
+                    <input type="text" id="prod-title" required placeholder="مثال: سماد سائل فائق النمو">
+                </div>
+                <div class="form-group">
+                    <label for="prod-price">السعر (بالدينار العراقي):</label>
+                    <input type="number" id="prod-price" required placeholder="مثال: 15000">
+                </div>
+                <div class="form-group">
+                    <label for="prod-img">صورة المنتج (ارفعها مباشرة من جهازك):</label>
+                    <input type="file" id="prod-img" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label for="prod-desc1">الوصف الأولي السريع:</label>
+                    <input type="text" id="prod-desc1" required placeholder="وصف مقتضب يظهر بالكارت الرئيسي">
+                </div>
+                <div class="form-group">
+                    <label for="prod-desc2">الوصف الثانوي التفصيلي:</label>
+                    <textarea id="prod-desc2" required placeholder="اشرح فيه فوائد السماد وطريقة الاستخدام بالتفصيل للزبون"></textarea>
+                </div>
+                <button type="submit" class="btn-add-product">نشر المنتج فوراً بالمتجر <i class="fas fa-plus"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 جميع الحقوق محفوظة لـ متجر نبوتة</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
