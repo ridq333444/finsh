@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>متجر نبوتة | لعالم نباتات أكثر حيوية</title>
+    <!-- Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Tajawal -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -12,6 +14,7 @@
 </head>
 <body>
 
+    <!-- الشاشة الترحيبية الاحترافية (Splash Screen) -->
     <div class="splash-screen">
         <div class="splash-content">
             <i class="fas fa-seedling splash-icon"></i>
@@ -20,8 +23,10 @@
         </div>
     </div>
 
+    <!-- الهيدر (شريط التنقل العلوي) -->
     <header>
         <div class="nav-container">
+            <!-- الشعار الذي يحتوي على تفعيل لوحة التحكم السري بـ 5 ضغطات -->
             <div class="logo" id="secret-logo-trigger" style="cursor: pointer; user-select: none;">
                 <i class="fas fa-seedling"></i>
                 <span>نبوتة</span>
@@ -42,6 +47,7 @@
         </div>
     </header>
 
+    <!-- القائمة الجانبية (Sidebar) وتضم النبذة التعريفية فقط للزبون -->
     <div class="sidebar" id="sidebar">
         <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
         <div class="sidebar-content">
@@ -56,6 +62,7 @@
     </div>
     <div class="overlay" id="overlay" onclick="closeAllPanels()"></div>
 
+    <!-- القسم الرئيسي الواجهة (Hero Section) -->
     <section class="hero-section">
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -65,22 +72,26 @@
         </div>
     </section>
 
+    <!-- قسم شبكة عرض المنتجات -->
     <section class="products-container" id="products-section">
         <div class="section-title">
             <h3>مجموعتنا الحصرية</h3>
             <p>أفضل المنتجات لنمو مثالي واحترافي</p>
         </div>
         <div class="products-grid" id="products-grid">
-            </div>
+            <!-- المنتجات ستظهر هنا ديناميكياً بواسطة الجافاسكريبت -->
+        </div>
     </section>
 
+    <!-- سلة التسوق الجانبية (Cart Panel) -->
     <div class="cart-panel" id="cart-panel">
         <div class="cart-header">
             <h3>سلة المشتريات</h3>
             <button onclick="toggleCart()">&times;</button>
         </div>
         <div class="cart-items" id="cart-items-container">
-            </div>
+            <!-- عناصر السلة المضافة تظهر هنا -->
+        </div>
         <div class="cart-footer">
             <div class="total-price-box">
                 <span>الإجمالي:</span>
@@ -90,6 +101,7 @@
         </div>
     </div>
 
+    <!-- مودال واجهة إتمام الطلب للعميل (Checkout Modal) -->
     <div class="modal" id="checkout-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -138,13 +150,18 @@
         </div>
     </div>
 
+    <!-- مودال لوحة تحكم المسؤول السرية المحدثة (إضافة، تعديل، وحذف) -->
     <div class="modal" id="admin-modal">
-        <div class="modal-content">
+        <div class="modal-content admin-modal-content">
             <div class="modal-header">
-                <h3>لوحة التحكم الإدارية | إضافة منتج</h3>
+                <h3 id="admin-modal-title">لوحة التحكم الإدارية | إضافة منتج</h3>
                 <button onclick="closeAdminModal()">&times;</button>
             </div>
-            <form id="admin-form" onsubmit="addNewProduct(event)">
+            
+            <!-- حقل مخفي لتخزين الـ ID الخاص بالمنتج الجاري تعديله -->
+            <input type="hidden" id="edit-prod-id" value="">
+
+            <form id="admin-form" onsubmit="saveProductForm(event)">
                 <div class="form-group">
                     <label for="prod-title">اسم المنتج:</label>
                     <input type="text" id="prod-title" required placeholder="مثال: سماد سائل فائق النمو">
@@ -154,8 +171,8 @@
                     <input type="number" id="prod-price" required placeholder="مثال: 15000">
                 </div>
                 <div class="form-group">
-                    <label for="prod-img">صورة المنتج (ارفعها مباشرة من جهازك):</label>
-                    <input type="file" id="prod-img" accept="image/*" required>
+                    <label for="prod-img">صورة المنتج (ارفع ملف جديد، أو اتركه فارغاً عند التعديل للاحتفاظ بالقديمة):</label>
+                    <input type="file" id="prod-img" accept="image/*">
                 </div>
                 <div class="form-group">
                     <label for="prod-desc1">الوصف الأولي السريع:</label>
@@ -165,8 +182,20 @@
                     <label for="prod-desc2">الوصف الثانوي التفصيلي:</label>
                     <textarea id="prod-desc2" required placeholder="اشرح فيه فوائد السماد وطريقة الاستخدام بالتفصيل للزبون"></textarea>
                 </div>
-                <button type="submit" class="btn-add-product">نشر المنتج فوراً بالمتجر <i class="fas fa-plus"></i></button>
+                <div class="admin-form-buttons">
+                    <button type="submit" id="btn-admin-submit" class="btn-add-product">نشر المنتج فوراً بالمتجر <i class="fas fa-plus"></i></button>
+                    <button type="button" id="btn-cancel-edit" class="btn-cancel" style="display:none;" onclick="resetAdminForm()">إلغاء التعديل</button>
+                </div>
             </form>
+
+            <hr>
+            <!-- قسم إدارة وحذف المنتجات الحالية -->
+            <div class="manage-products-section">
+                <h4>إدارة وحذف المنتجات الحالية:</h4>
+                <div class="admin-products-list" id="admin-products-list">
+                    <!-- لستة المنتجات مع أزرار الحذف والتعديل تظهر هنا -->
+                </div>
+            </div>
         </div>
     </div>
 
